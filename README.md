@@ -19,6 +19,7 @@ Antes de ejecutar, debes tener instalado:
 - Maven Wrapper (ya incluido en cada servicio mediante `mvnw.cmd`)
 - PowerShell (Windows)
 - Git (opcional, para clonar)
+- Docker Desktop (opcional, para levantar todo con Docker Compose)
 
 Comprobar Java:
 
@@ -94,6 +95,51 @@ Debes ver: `Tomcat started on port 8080`.
 ### Terminal 5 - Pruebas
 
 Usa una terminal adicional para ejecutar llamadas `Invoke-RestMethod`.
+
+---
+
+## 5.1) Levantar todo con Docker Compose (opcional y recomendado)
+
+Si no quieres abrir varias terminales, puedes arrancar todo con un solo comando desde la raíz del proyecto.
+
+### Arrancar servicios
+
+```powershell
+docker compose up --build
+```
+
+Este comando construye imágenes y levanta:
+
+- `pacientes-service` en `8081`
+- `medicos-service` en `8082`
+- `citas-service` en `8083`
+- `api-gateway` en `8080`
+
+### Ver servicios levantados
+
+```powershell
+docker compose ps
+```
+
+### Ver logs
+
+```powershell
+docker compose logs -f
+```
+
+### Parar y limpiar contenedores
+
+```powershell
+docker compose down
+```
+
+### Pruebas por gateway (cuando está en Docker)
+
+```powershell
+Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/pacientes"
+Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/medicos"
+Invoke-RestMethod -Method Get -Uri "http://localhost:8080/api/citas"
+```
 
 ---
 

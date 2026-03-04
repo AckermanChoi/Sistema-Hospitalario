@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  pacientes-service:
+    build:
+      context: ./pacientes-service
+    container_name: pacientes-service
+    ports:
+      - "8081:8081"
+
+  medicos-service:
+    build:
+      context: ./medicos-service
+    container_name: medicos-service
+    ports:
+      - "8082:8082"
+
+  citas-service:
+    build:
+      context: ./citas-service
+    container_name: citas-service
+    environment:
+      EXTERNAL_SERVICES_PACIENTES_BASE_URL: http://pacientes-service:8081
+      EXTERNAL_SERVICES_MEDICOS_BASE_URL: http://medicos-service:8082
+    ports:
+      - "8083:8083"
+    depends_on:
+      - pacientes-service
+      - medicos-service
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api-gateway
+    environment:
+      GATEWAY_PACIENTES_URI: http://pacientes-service:8081
+      GATEWAY_MEDICOS_URI: http://medicos-service:8082
+      GATEWAY_CITAS_URI: http://citas-service:8083
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pacientes-service
+      - medicos-service
+      - citas-service
