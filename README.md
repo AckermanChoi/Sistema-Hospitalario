@@ -299,6 +299,44 @@ Debes crear primero los recursos en `pacientes-service` y `medicos-service`.
 
 ---
 
+## 15) Validación rápida (qué debes ver)
+
+Si abres en navegador:
+
+- `http://localhost:8080/api/pacientes`
+- `http://localhost:8080/api/medicos`
+- `http://localhost:8080/api/citas`
+
+puedes ver `[]` (lista vacía). Eso significa que **la ruta funciona**, pero no hay datos creados todavía.
+
+Después de crear registros con `POST`, al volver a listar ya no saldrá vacío.
+
+### Importante sobre H2 en memoria
+
+Este proyecto usa H2 en memoria, por lo que al reiniciar un servicio sus datos se pierden. Es un comportamiento esperado para este entorno académico.
+
+### Verificar que el gateway está funcionando
+
+El API Gateway enruta peticiones; no expone endpoints de negocio propios como Pacientes/Médicos/Citas.
+
+Puedes validar su estado en:
+
+- `http://localhost:8080/actuator/health`
+
+Y su funcionamiento real probando rutas de negocio por `8080`.
+
+### Error común al arrancar
+
+Si aparece error de Maven por objetivo no encontrado, revisa que el comando sea exactamente:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+No uses `spring-boot:runv` (con `v`), porque ese objetivo no existe.
+
+---
+
 Si quieres mejorar la nota del proyecto, los siguientes extras son buenos candidatos:
 
 - Swagger/OpenAPI
