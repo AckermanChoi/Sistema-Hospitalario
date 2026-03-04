@@ -207,7 +207,30 @@ Esto demuestra el funcionamiento de **punto único de entrada**.
 
 ---
 
-## 8) Reglas de negocio implementadas
+## 8) Documentación interactiva con Swagger
+
+Con los servicios levantados, abre estas URLs en el navegador:
+
+- Pacientes: `http://localhost:8081/swagger-ui/index.html`
+- Médicos: `http://localhost:8082/swagger-ui/index.html`
+- Citas: `http://localhost:8083/swagger-ui/index.html`
+
+También puedes ver el JSON OpenAPI en:
+
+- Pacientes: `http://localhost:8081/v3/api-docs`
+- Médicos: `http://localhost:8082/v3/api-docs`
+- Citas: `http://localhost:8083/v3/api-docs`
+
+Uso recomendado para quien evalúa el proyecto:
+
+1. Abrir Swagger UI de cada microservicio.
+2. Probar un endpoint `GET` (listado).
+3. Probar un endpoint `POST` (creación).
+4. Revisar respuestas y códigos HTTP.
+
+---
+
+## 9) Reglas de negocio implementadas
 
 En `citas-service`:
 
@@ -217,14 +240,14 @@ En `citas-service`:
 - Estado inicial de cita: `PROGRAMADA`.
 - Cancelación cambia estado a `CANCELADA`.
 
-## 9) Manejo de errores (resumen)
+## 10) Manejo de errores (resumen)
 
 - `400 Bad Request`: validaciones de entrada o reglas de negocio.
 - `404 Not Found`: recurso inexistente (por ejemplo, ID no encontrado).
 - `409 Conflict`: duplicados en pacientes/médicos (DNI / número colegiado).
 - `500 Internal Server Error`: error no controlado.
 
-## 10) Base de datos
+## 11) Base de datos
 
 Cada servicio usa H2 en memoria:
 
@@ -234,7 +257,7 @@ Cada servicio usa H2 en memoria:
 
 La información se pierde al detener cada servicio (comportamiento normal en H2 memoria).
 
-## 11) Cómo detener servicios
+## 12) Cómo detener servicios
 
 En cada terminal de servidor, pulsa:
 
@@ -242,7 +265,7 @@ En cada terminal de servidor, pulsa:
 Ctrl + C
 ```
 
-## 12) Solución de problemas comunes
+## 13) Solución de problemas comunes
 
 ### Error: puerto en uso
 
@@ -264,7 +287,7 @@ Debes crear primero los recursos en `pacientes-service` y `medicos-service`.
 
 ---
 
-## 13) Estado del proyecto
+## 14) Estado del proyecto
 
 - [x] Microservicio de Pacientes
 - [x] Microservicio de Médicos
